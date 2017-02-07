@@ -28,6 +28,32 @@
         <javax.servlet-api.version>3.0.1</javax.servlet-api.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profile>mysql</spring.profile>
+            </properties>
+            <dependencies>
+                <!-- Database -->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>5.1.39</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profile>dev</spring.profile>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <!-- Spring -->
         <dependency>
