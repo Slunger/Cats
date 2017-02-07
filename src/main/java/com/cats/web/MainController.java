@@ -12,7 +12,7 @@ import javax.enterprise.inject.Model;
 public class MainController {
 
     @RequestMapping("/main")
-    public String main(Model model){
+    public String main(){
         return "main";
     }
 }
