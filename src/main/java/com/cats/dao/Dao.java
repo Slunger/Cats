@@ -65,7 +65,20 @@ public class Dao {
      */
     public <T> T save(T entity) {
         LOG.info("Going to save entity - {}", entity);
-        currentSession().saveOrUpdate(entity);
+        currentSession().save(entity);
+        return entity;
+    }
+
+    /**
+     * Update the given transient instance.
+     *
+     * @param entity - a transient instance of a persistent class
+     * @param <T>    - updated entity
+     * @return
+     */
+    public <T> T update(T entity) {
+        LOG.info("Going to update entity - {}", entity);
+        currentSession().update(entity);
         return entity;
     }
 
