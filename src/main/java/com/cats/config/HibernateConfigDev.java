@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
@@ -18,16 +19,8 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@Profile("mysql")
-public class HibernateConfig {
-
-    private static final String HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
-    private static final String HIBERNATE_DIALECT = "hibernate.dialect";
-    private static final String HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
-    private static final String HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-
-    @Autowired
-    private Environment env;
+@Profile("dev")
+public class HibernateConfigDev {
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
@@ -39,13 +32,11 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DriverManagerDataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("db.driver"));
-        dataSource.setUrl(env.getRequiredProperty("db.url"));
-        dataSource.setUsername(env.getRequiredProperty("db.userName"));
-        dataSource.setPassword(env.getRequiredProperty("db.password"));
-        return dataSource;
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder()
+                .setName("cats")
+                .setType(EmbeddedDatabaseType.H2)
+                .build();
     }
 
     @Bean
@@ -59,10 +50,10 @@ public class HibernateConfig {
 
     private Properties additionalProperties() {
         final Properties properties = new Properties();
-        properties.setProperty(HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(HIBERNATE_HBM2DDL_AUTO));
-        properties.setProperty(HIBERNATE_DIALECT, env.getRequiredProperty(HIBERNATE_DIALECT));
-        properties.setProperty(HIBERNATE_FORMAT_SQL, env.getRequiredProperty(HIBERNATE_FORMAT_SQL));
-        properties.setProperty(HIBERNATE_SHOW_SQL, env.getRequiredProperty(HIBERNATE_SHOW_SQL));
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.setProperty("hibernate.format_sql", Boolean.TRUE.toString());
+        properties.setProperty("hibernate.show_sql", Boolean.TRUE.toString());
         return properties;
     }
 }
