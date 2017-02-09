@@ -7,13 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 /**
@@ -28,44 +23,50 @@ public class CatRestController {
     @Autowired
     private CatService catService;
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAll() {
         Collection<Cat> catList = catService.getAll();
+        if (catList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(catList, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createCat(@Valid Cat cat, BindingResult bindingResult) {
+    public ResponseEntity createCat(@RequestBody Cat cat) {
         LOG.info(cat.toString());
 
-        if (bindingResult.hasErrors()) {
-            LOG.info(bindingResult.getAllErrors().toString());
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
         catService.save(cat);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)//POST
-    public ResponseEntity update(@Valid Cat cat, BindingResult bindingResult) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Cat cat) {
         LOG.info(cat.toString());
 
-        if (bindingResult.hasErrors()) {
-            LOG.info(bindingResult.getAllErrors().toString());
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (catService.get(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        cat.setId(id);
         catService.update(cat);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteCat(@PathVariable("id") Integer id) {
+        if (catService.get(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         catService.delete(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getCat(@PathVariable("id") Integer id) {
-        return new ResponseEntity<>(catService.get(id), HttpStatus.OK);
+        Cat cat = catService.get(id);
+        if (cat == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(cat, HttpStatus.OK);
     }
 }
