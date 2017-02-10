@@ -1,10 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Main</title>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="myApp">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Cats</title>
+    <link rel="stylesheet" href="/resources/css/main.css">
 </head>
-<body>
+<body class="ng-cloak">
 
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cats</a>
+        </div>
+    </div>
+</nav>
+
+<div class="tableCats" ng-controller="CatController as ctrl">
+    <div class="col-md-8 col-md-offset-2">
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="lead">List of Cats </span>
+                </div>
+                <div class="tablecontainer">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Color</th>
+                            <th>Breed</th>
+                            <th>Weight</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="cat in ctrl.cats">
+                            <td><span ng-bind="cat.id"></span></td>
+                            <td><span ng-bind="cat.name"></span></td>
+                            <td><span ng-bind="cat.age"></span></td>
+                            <td><span ng-bind="cat.color"></span></td>
+                            <td><span ng-bind="cat.breed"></span></td>
+                            <td><span ng-bind="cat.weight"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="fragments :: jsfiles(~{::script})">
+    <script src="/resources/js/app.js"></script>
+    <script src="/resources/js/cats_service.js"></script>
+    <script src="/resources/js/cats_controller.js"></script>
+</div>
 </body>
 </html>
+

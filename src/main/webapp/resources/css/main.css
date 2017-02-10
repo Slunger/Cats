@@ -1,0 +1,21 @@
+body, #mainWrapper {
+    height: 70%;
+}
+
+body, .form-control{
+    font-size:12px!important;
+}
+
+.floatRight{
+    float:right;
+    margin-right: 18px;
+}
+
+.custom-width {
+    width: 80px !important;
+}
+
+.tableCats{
+    padding-top: 5%;
+    text-align: center;
+}
