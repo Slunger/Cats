@@ -17,6 +17,80 @@
     <div class="col-md-8 col-md-offset-2">
 
         <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><span class="lead">Edit/Create cat </span></div>
+                    <div class="formcontainer">
+                        <form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal">
+                            <input type="hidden" ng-model="ctrl.cat.id"/>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable">Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="ctrl.cat.name"
+                                               class="form-control input-sm" placeholder="Enter name of the cat"
+                                               required
+                                               ng-minlength="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable">Age</label>
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="ctrl.cat.age" class="form-control input-sm"
+                                               placeholder="Enter age"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable">Color</label>
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="ctrl.cat.color"
+                                               class="form-control input-sm" placeholder="Enter color"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable">Breed</label>
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="ctrl.cat.breed"
+                                               class="form-control input-sm" placeholder="Enter breed"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2 control-lable">Weight</label>
+                                    <div class="col-md-6">
+                                        <input type="text" ng-model="ctrl.cat.weight"
+                                               class="form-control input-sm" placeholder="Enter weight"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-actions floatRight">
+                                            <input type="submit" value="{{!ctrl.cat.id ? 'Add' : 'Update'}}"
+                                                   class="btn btn-primary btn-sm"
+                                                   ng-disabled="myForm.$invalid">
+                                            <button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm"
+                                                    ng-disabled="myForm.$pristine">Reset Form
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading"><span class="lead">List of Cats </span>
                 </div>
