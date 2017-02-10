@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head(title,links)">
     <title th:replace="${title}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -7,9 +7,19 @@
     <th:block th:replace="${links}"/>
 </head>
 <body>
-<div th:fragment="jsfiles(scripts)">
+
+<nav th:fragment="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cats</a>
+        </div>
+    </div>
+</nav>
+
+<th:block th:fragment="jsfiles(scripts)">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
     <th:block th:replace="${scripts}"/>
-</div>
+</th:block>
+
 </body>
 </html>

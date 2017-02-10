@@ -6,11 +6,6 @@ body, .form-control{
     font-size:12px!important;
 }
 
-.floatRight{
-    float:right;
-    margin-right: 18px;
-}
-
 .custom-width {
     width: 80px !important;
 }
@@ -18,4 +13,7 @@ body, .form-control{
 .tableCats{
     padding-top: 5%;
     text-align: center;
+}
+.name{
+    padding-top: 5%;
 }
