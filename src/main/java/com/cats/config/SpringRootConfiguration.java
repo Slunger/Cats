@@ -13,6 +13,6 @@ import org.springframework.context.annotation.PropertySource;
         "com.cats.dao"})
 @Import({HibernateConfig.class,
         HibernateConfigDev.class})
-@PropertySource(value = "file:${user.home}/application.properties")
+@PropertySource(value = "resources/application.properties")
 public class SpringRootConfiguration {
 }

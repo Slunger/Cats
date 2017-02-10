@@ -11,7 +11,7 @@ import javax.enterprise.inject.Model;
 @Controller
 public class MainController {
 
-    @RequestMapping("/main")
+    @RequestMapping("/")
     public String main(){
         return "main";
     }
