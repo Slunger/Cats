@@ -5,6 +5,10 @@
     }
 }
 
+.container{
+    padding-top: 5%;
+}
+
 .omb_login .omb_authTitle {
     text-align: center;
     line-height: 300%;

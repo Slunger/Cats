@@ -15,7 +15,8 @@
             <a class="navbar-brand" href="#">Cats</a>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <form class="navbar-form navbar-right" th:action="@{/logout}" method="post" style="display:inline"><input
+            <form class="navbar-form navbar-right" th:action="@{/logout}" method="post" style="display:inline">
+                <input class="btn btn-default"
                     type="submit" value="Logout"/></form>
         </div>
     </div>
