@@ -12,7 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan({"com.cats.services",
         "com.cats.dao"})
 @Import({HibernateConfig.class,
-        HibernateConfigDev.class})
+        HibernateConfigDev.class,
+        SecurityConfig.class})
 @PropertySource(value = "resources/application.properties")
 public class SpringRootConfiguration {
 }
