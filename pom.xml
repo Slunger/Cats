@@ -29,6 +29,7 @@
         <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
         <thymeleafspringsecurity4.version>3.0.2.RELEASE</thymeleafspringsecurity4.version>
         <spring-security-web.version>4.2.1.RELEASE</spring-security-web.version>
+        <spring-security-oauth2.version>2.0.12.RELEASE</spring-security-oauth2.version>
     </properties>
 
     <profiles>
@@ -224,6 +225,14 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>${spring-security-web.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${spring-security-oauth2.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
