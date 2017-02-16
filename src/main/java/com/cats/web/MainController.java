@@ -15,12 +15,12 @@ public class MainController {
         return "main";
     }
 
-    @RequestMapping({"/", "/welcome"})
+    @RequestMapping("/")
     public String welcome() {
         return "welcome";
     }
 
-    @RequestMapping("/login-error")
+    @RequestMapping(value = "/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "welcome";
