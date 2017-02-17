@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{})}">
+    <title>Cats</title>
+</head>
+<body>
+<div class="container">
+    <h1>OAuth2</h1>
+
+    <p>
+        You hereby authorize access to protected resources of the server.
+    </p>
+
+    <form class="omb_AuthorizeForm" th:action="@{/oauth/authorize}" autocomplete="off" method="POST">
+        <input name="user_oauth_approval" value="true" type="hidden"/>
+        <ul class="list-unstyled">
+            <div th:each="scope : ${scopes}">
+                <li>
+                    <div class="form-group">
+                        <span th:text="${scope.key}"></span>:
+                        <input type="radio" th:name="${scope.key}" value="true" th:checked="${scope.value}">
+                        Approve</input>
+                        <input type="radio" th:name="${scope.key}" value="false" th:checked="!${scope.value}">
+                        Deny</input>
+                    </div>
+                </li>
+            </div>
+        </ul>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+</div>
+</body>
+</html>
