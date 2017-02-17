@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -26,6 +27,9 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
  */
 @Configuration
 public class OAuth2ServerConfig {
+
+    private static final String CAT_RESOURCE_ID = "cat";
+
 
     protected static class Stuff {
 
@@ -43,6 +47,7 @@ public class OAuth2ServerConfig {
         }
 
         @Bean
+        @Lazy
         @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
         public ServerUserApprovalHandler userApprovalHandler() throws Exception {
             ServerUserApprovalHandler handler = new ServerUserApprovalHandler();
@@ -58,6 +63,11 @@ public class OAuth2ServerConfig {
     @EnableResourceServer
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
+		@Override
+		public void configure(ResourceServerSecurityConfigurer resources) {
+			resources.resourceId(CAT_RESOURCE_ID).stateless(false);
+		}
+
         @Override
         public void configure(HttpSecurity http) throws Exception {
             // @formatter:off
@@ -66,11 +76,10 @@ public class OAuth2ServerConfig {
                     // session creation to be allowed (it's disabled by default in 2.0.6)
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                     .and()
-                    .authorizeRequests()
-//                    .antMatchers("/").permitAll()
-                    .antMatchers("/cats/**").access("#oauth2.hasScope('read')")
+                    .requestMatchers().antMatchers("/cats/**")
                     .and()
-                    .requestMatchers().antMatchers("/cats/**");
+                    .authorizeRequests()
+                    .antMatchers("/cats/**").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))");
             // @formatter:on
         }
 
@@ -96,7 +105,8 @@ public class OAuth2ServerConfig {
 
             clients.inMemory()
                     .withClient("catId-client-android")
-                    .authorizedGrantTypes("authorization_code", "refresh_token")
+                    .resourceIds(CAT_RESOURCE_ID)
+                    .authorizedGrantTypes("authorization_code")
                     .authorities("ROLE_CLIENT")
                     .scopes("read", "write")
                     .secret("secretId-client-android")

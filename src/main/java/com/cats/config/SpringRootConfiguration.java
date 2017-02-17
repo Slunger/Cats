@@ -13,7 +13,8 @@ import org.springframework.context.annotation.PropertySource;
         "com.cats.dao"})
 @Import({HibernateConfig.class,
         HibernateConfigDev.class,
-        SecurityConfig.class})
+        SecurityConfig.class,
+        OAuth2ServerConfig.class})
 @PropertySource(value = "resources/application.properties")
 public class SpringRootConfiguration {
 }
