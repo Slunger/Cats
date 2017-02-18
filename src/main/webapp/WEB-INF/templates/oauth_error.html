@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{})}">
+    <title>Cats</title>
+</head>
+<body>
+<div class="container">
+    <h1>OAuth2 Error</h1>
+
+    <p th:utext="${message}"></p>
+    <p>Please go back to your client application and try again, or
+        contact the owner and ask for support</p>
+</div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:fragment="head(title,links)">
     <title th:replace="${title}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -12,6 +13,11 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Cats</a>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <form class="navbar-form navbar-right" th:action="@{/logout}" method="post" style="display:inline">
+                <input class="btn btn-default"
+                    type="submit" value="Logout"/></form>
         </div>
     </div>
 </nav>

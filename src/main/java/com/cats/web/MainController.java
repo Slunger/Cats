@@ -1,9 +1,8 @@
 package com.cats.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.enterprise.inject.Model;
 
 /**
  * Created by andrey on 07.02.17.
@@ -11,8 +10,19 @@ import javax.enterprise.inject.Model;
 @Controller
 public class MainController {
 
-    @RequestMapping("/")
-    public String main(){
+    @RequestMapping("/main")
+    public String main() {
         return "main";
+    }
+
+    @RequestMapping("/")
+    public String welcome() {
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/login-error")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "welcome";
     }
 }
