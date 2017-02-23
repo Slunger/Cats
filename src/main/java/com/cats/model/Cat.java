@@ -38,7 +38,6 @@ public class Cat implements Serializable {
     @Column(name = "likes")
     private int likes;
 
-//    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private Integer userId;

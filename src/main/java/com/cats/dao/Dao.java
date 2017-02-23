@@ -1,7 +1,9 @@
 package com.cats.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,15 @@ public class Dao {
         return entity;
     }
 
+
+    public <T> T getBy(DetachedCriteria criteria) {
+        LOG.info("Going to find entity by criteria - {}", criteria);
+        final Criteria executableCriteria = criteria.getExecutableCriteria(currentSession());
+        final T entity = (T) executableCriteria.uniqueResult();
+        LOG.info("Found entity: {}", entity);
+        return entity;
+    }
+
     /**
      * Return all persistent instances of the given entity class,
      * or null if there is no such persistent instance.
@@ -65,7 +76,7 @@ public class Dao {
      */
     public <T> T save(T entity) {
         LOG.info("Going to save entity - {}", entity);
-        currentSession().save(entity);
+        currentSession().saveOrUpdate(entity);
         return entity;
     }
 
