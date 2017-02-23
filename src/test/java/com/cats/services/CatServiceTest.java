@@ -1,6 +1,7 @@
 package com.cats.services;
 
 import com.cats.model.Cat;
+import com.cats.services.cat.CatService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

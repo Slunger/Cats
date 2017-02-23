@@ -1,7 +1,7 @@
 package com.cats.web;
 
 import com.cats.model.Cat;
-import com.cats.services.CatService;
+import com.cats.services.cat.CatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +71,7 @@ public class CatRestController {
     }
 
     @RequestMapping(value = "/liked/{id}", method = RequestMethod.PUT)
-    public ResponseEntity trackLiked(@PathVariable("id") final Integer catId) {
+    public ResponseEntity catLiked(@PathVariable("id") final Integer catId) {
         catService.like(catId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

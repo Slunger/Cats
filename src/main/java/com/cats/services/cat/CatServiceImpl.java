@@ -1,4 +1,4 @@
-package com.cats.services;
+package com.cats.services.cat;
 
 import com.cats.dao.Dao;
 import com.cats.model.Cat;

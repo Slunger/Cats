@@ -2,6 +2,8 @@ package com.cats.services;
 
 import com.cats.model.Cat;
 import com.cats.model.User;
+import com.cats.services.cat.CatService;
+import com.cats.services.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

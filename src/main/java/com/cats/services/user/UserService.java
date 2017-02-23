@@ -1,4 +1,4 @@
-package com.cats.services;
+package com.cats.services.user;
 
 import com.cats.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
