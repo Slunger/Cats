@@ -1,5 +1,7 @@
 package com.cats.config;
 
+import com.cats.config.security.OAuth2ServerConfig;
+import com.cats.config.security.SecurityConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

@@ -20,4 +20,6 @@ public interface CatService {
     Cat get(Integer catId);
 
     Collection<Cat> getAll();
+
+    void like(Integer catId);
 }

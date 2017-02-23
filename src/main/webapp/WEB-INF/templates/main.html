@@ -99,6 +99,7 @@
                         <th>Color</th>
                         <th>Breed</th>
                         <th>Weight</th>
+                        <th>Likes</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -110,7 +111,11 @@
                         <td><span ng-bind="cat.color"></span></td>
                         <td><span ng-bind="cat.breed"></span></td>
                         <td><span ng-bind="cat.weight"></span></td>
+                        <td><span ng-bind="cat.likes"></span></td>
                         <td>
+                            <button type="button" ng-click="ctrl.like(cat.id)" class="btn btn-info custom-width">
+                                Like
+                            </button>
                             <button type="button" ng-click="ctrl.edit(cat.id)" class="btn btn-success custom-width">
                                 Edit
                             </button>

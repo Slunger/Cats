@@ -1,5 +1,6 @@
-package com.cats.config;
+package com.cats.config.security;
 
+import com.cats.config.security.SecurityConfig;
 import com.cats.oauth.ServerUserApprovalHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

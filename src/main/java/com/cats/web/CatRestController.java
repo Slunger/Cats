@@ -69,4 +69,10 @@ public class CatRestController {
         }
         return new ResponseEntity<>(cat, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/liked/{id}", method = RequestMethod.PUT)
+    public ResponseEntity trackLiked(@PathVariable("id") final Integer catId) {
+        catService.like(catId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

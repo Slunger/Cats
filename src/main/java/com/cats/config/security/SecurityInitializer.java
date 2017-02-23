@@ -1,4 +1,4 @@
-package com.cats.config;
+package com.cats.config.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 @Service("catService")
 @Transactional
-public class CatServiceImpl implements CatService{
+public class CatServiceImpl implements CatService {
 
     @Autowired
     private Dao dao;
@@ -47,5 +47,12 @@ public class CatServiceImpl implements CatService{
     @Override
     public Collection<Cat> getAll() {
         return dao.all(Cat.class);
+    }
+
+    @Override
+    public void like(Integer catId) {
+        Cat cat = dao.get(Cat.class, catId);
+        cat.setLikes(cat.getLikes() + 1);
+        dao.save(cat);
     }
 }

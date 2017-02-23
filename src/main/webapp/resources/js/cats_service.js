@@ -9,7 +9,8 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function ($http, $
         fetchCat: fetchCat,
         createCat: createCat,
         updateCat: updateCat,
-        deleteCat: deleteCat
+        deleteCat: deleteCat,
+        likeCat: likeCat
     };
 
     return factory;
@@ -90,4 +91,18 @@ angular.module('myApp').factory('CatService', ['$http', '$q', function ($http, $
         return deferred.promise;
     }
 
+    function likeCat(id) {
+        var deferred = $q.defer();
+        $http.put(REST_SERVICE_URI + "liked/" + id)
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function (errResponse) {
+                    console.error('Error while liked cat');
+                    deferred.reject(errResponse);
+                }
+            );
+        return deferred.promise;
+    }
 }]);

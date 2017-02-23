@@ -8,6 +8,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.edit = edit;
     self.remove = remove;
     self.reset = reset;
+    self.like = like;
 
 
     fetchAllCats();
@@ -95,6 +96,15 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
         deleteCat(id);
     }
 
+    function like(id) {
+        CatService.likeCat(id)
+            .then(
+                fetchAllCats,
+                function (errResponse) {
+                    console.error('Error while updating cat');
+                }
+            );
+    }
 
     function reset() {
         self.cat = {id: null, age: null, color: '', breed: '', name: '', weight: null};

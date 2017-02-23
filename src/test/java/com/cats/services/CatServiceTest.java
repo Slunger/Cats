@@ -33,16 +33,16 @@ public class CatServiceTest {
 
     @Test
     public void testSaveCat() {
-        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
+        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
         catService.save(cat);
         assertNotNull(catService.get(cat.getId()));
     }
 
     @Test
     public void testSaveAllCats() {
-        final Cat cat1 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
-        final Cat cat2 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
-        final Cat cat3 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
+        final Cat cat1 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+        final Cat cat2 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+        final Cat cat3 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
         catService.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         Collection<Cat> catCollection = catService.saveAll(Arrays.asList(cat1, cat2, cat3));
@@ -55,7 +55,7 @@ public class CatServiceTest {
 
     @Test
     public void testUpdateCat() {
-        Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
+        Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
         catService.save(cat);
         cat.setAge(cat.getAge() + 1);
 
@@ -65,7 +65,7 @@ public class CatServiceTest {
 
     @Test
     public void testDeleteCat(){
-        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT);
+        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
         catService.save(cat);
         catService.delete(cat.getId());
         assertNull(catService.get(cat.getId()));

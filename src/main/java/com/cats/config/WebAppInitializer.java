@@ -1,5 +1,6 @@
 package com.cats.config;
 
+import com.cats.config.security.SecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
