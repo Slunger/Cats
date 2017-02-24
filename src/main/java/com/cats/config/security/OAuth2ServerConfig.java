@@ -1,6 +1,5 @@
 package com.cats.config.security;
 
-import com.cats.config.security.SecurityConfig;
 import com.cats.oauth.ServerUserApprovalHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -77,10 +76,10 @@ public class OAuth2ServerConfig {
                     // session creation to be allowed (it's disabled by default in 2.0.6)
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                     .and()
-                    .requestMatchers().antMatchers("/cats/**")
+                    .requestMatchers().antMatchers("/cats/**","/firebase/**")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/cats/**").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))");
+                    .antMatchers("/cats/**", "/firebase/**").access("#oauth2.hasScope('read') or (!#oauth2.isOAuth() and hasRole('ROLE_USER'))");
             // @formatter:on
         }
 

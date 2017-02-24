@@ -32,6 +32,9 @@ public class User implements UserDetails, Serializable {
     @Column(unique = true)
     private String username;
 
+    @Column(name = "token")
+    private String token;
+
     public User() {
 
     }
@@ -59,6 +62,14 @@ public class User implements UserDetails, Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
@@ -95,6 +106,7 @@ public class User implements UserDetails, Serializable {
                 "id=" + id +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
+                ", token=" + token +
                 '}';
     }
 }

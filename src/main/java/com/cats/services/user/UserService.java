@@ -16,4 +16,6 @@ public interface UserService extends UserDetailsService {
     User save(User user);
 
     List<User> findAll();
+
+    void updateTokenByUsername(String username, String token);
 }

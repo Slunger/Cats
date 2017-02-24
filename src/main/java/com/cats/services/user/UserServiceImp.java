@@ -45,4 +45,15 @@ public class UserServiceImp implements UserService {
     public List<User> findAll() {
         return dao.all(User.class);
     }
+
+    @Override
+    public void updateTokenByUsername(String username, String token) {
+
+        final DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class)
+                .add(Property.forName("username").eq(username));
+
+        User user = dao.getBy(detachedCriteria);
+        user.setToken(token);
+        dao.update(user);
+    }
 }
