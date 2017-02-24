@@ -21,5 +21,5 @@ public interface CatService {
 
     Collection<Cat> getAll();
 
-    void like(Integer catId);
+    Cat like(Integer catId);
 }

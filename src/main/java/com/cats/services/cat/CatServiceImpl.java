@@ -50,9 +50,9 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public void like(Integer catId) {
+    public Cat like(Integer catId) {
         Cat cat = dao.get(Cat.class, catId);
         cat.setLikes(cat.getLikes() + 1);
-        dao.save(cat);
+        return dao.save(cat);
     }
 }

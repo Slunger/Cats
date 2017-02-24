@@ -27,6 +27,11 @@ public class UserServiceImp implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    public User get(Integer userId) {
+        return dao.get(User.class, userId);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         final DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class)

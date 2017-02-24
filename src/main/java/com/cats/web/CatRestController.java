@@ -1,7 +1,9 @@
 package com.cats.web;
 
 import com.cats.model.Cat;
+import com.cats.services.AndroidPushNotificationsService;
 import com.cats.services.cat.CatService;
+import com.cats.services.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collection;
 
 /**
@@ -22,6 +25,12 @@ public class CatRestController {
 
     @Autowired
     private CatService catService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private AndroidPushNotificationsService androidPushNotificationsService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAll() {
@@ -71,8 +80,10 @@ public class CatRestController {
     }
 
     @RequestMapping(value = "/liked/{id}", method = RequestMethod.PUT)
-    public ResponseEntity catLiked(@PathVariable("id") final Integer catId) {
-        catService.like(catId);
+    public ResponseEntity catLiked(@PathVariable("id") final Integer catId, Principal principal) {
+        androidPushNotificationsService
+                .sendNotification(principal.getName() + " liked your cat id=" + catId,
+                        userService.get(catService.like(catId).getUserId()).getToken());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

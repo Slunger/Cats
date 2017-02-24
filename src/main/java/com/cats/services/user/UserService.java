@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface UserService extends UserDetailsService {
 
+    User get(Integer userId);
+
     UserDetails loadUserByUsername(String username);
 
     User save(User user);
