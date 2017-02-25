@@ -41,6 +41,15 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public User loadUser(String s) throws UsernameNotFoundException {
+
+        final DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class)
+                .add(Property.forName("username").eq(s));
+
+        return dao.getBy(detachedCriteria);
+    }
+
+    @Override
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return dao.save(user);

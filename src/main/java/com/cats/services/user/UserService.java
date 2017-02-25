@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService {
     List<User> findAll();
 
     void updateTokenByUsername(String username, String token);
+
+    User loadUser(String s);
 }
