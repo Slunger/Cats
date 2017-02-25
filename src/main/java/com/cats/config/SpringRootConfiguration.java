@@ -16,7 +16,8 @@ import org.springframework.context.annotation.PropertySource;
 @Import({HibernateConfig.class,
         HibernateConfigDev.class,
         SecurityConfig.class,
-        OAuth2ServerConfig.class})
+        OAuth2ServerConfig.class,
+        WebSocketConfig.class})
 @PropertySource(value = "resources/application.properties")
 public class SpringRootConfiguration {
 }

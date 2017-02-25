@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class AndroidPushNotificationsService {
 
-    private static final String FIREBASE_SERVER_KEY = "AIzaSyDey2G4BHJ4LBsc5c2d_fEwBb0MEpKrOzo";
+    private static final String FIREBASE_SERVER_KEY = "FIREBASE_SERVER_KEY";
 
     private static final Logger LOG = LoggerFactory.getLogger(AndroidPushNotificationsService.class);
 
