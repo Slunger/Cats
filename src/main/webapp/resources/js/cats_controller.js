@@ -9,9 +9,24 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
     self.remove = remove;
     self.reset = reset;
     self.like = like;
-
+    self.notifications = [];
+    self.fetchMessage = fetchMessage;
 
     fetchAllCats();
+
+    function fetchMessage(userId) {
+        CatService.connect('/notification')
+            .then(function () {
+                CatService.fetchMessage(userId).then(null, null,
+                    function (msg) {
+                        if (self.notifications.length === 2) {
+                            self.notifications.pop();
+                        }
+                        self.notifications.unshift(msg.message);
+                    }
+                );
+            });
+    }
 
     function fetchAllCats() {
         CatService.fetchAllCats()
@@ -101,7 +116,7 @@ angular.module('myApp').controller('CatController', ['$scope', 'CatService', fun
             .then(
                 fetchAllCats,
                 function (errResponse) {
-                    console.error('Error while updating cat');
+                    console.error('Error while liked cat');
                 }
             );
     }

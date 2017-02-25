@@ -2,6 +2,7 @@ package com.cats.web;
 
 import com.cats.model.Cat;
 import com.cats.services.AndroidPushNotificationsService;
+import com.cats.services.MessageService;
 import com.cats.services.cat.CatService;
 import com.cats.services.user.UserService;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class CatRestController {
     private UserService userService;
 
     @Autowired
+    private MessageService messageService;
+
+    @Autowired
     private AndroidPushNotificationsService androidPushNotificationsService;
 
     @RequestMapping(method = RequestMethod.GET)
@@ -42,9 +46,10 @@ public class CatRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createCat(@RequestBody Cat cat) {
+    public ResponseEntity createCat(@RequestBody Cat cat, Principal principal) {
         LOG.info(cat.toString());
 
+        cat.setUserId(userService.loadUser(principal.getName()).getId());
         catService.save(cat);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -81,9 +86,12 @@ public class CatRestController {
 
     @RequestMapping(value = "/liked/{id}", method = RequestMethod.PUT)
     public ResponseEntity catLiked(@PathVariable("id") final Integer catId, Principal principal) {
+        String msg = principal.getName() + " liked your cat id=" + catId;
+        Cat cat = catService.like(catId);
+
         androidPushNotificationsService
-                .sendNotification(principal.getName() + " liked your cat id=" + catId,
-                        userService.get(catService.like(catId).getUserId()).getToken());
+                .sendNotification(msg, userService.get(cat.getUserId()).getToken());
+        messageService.send(cat.getUserId(), msg);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
