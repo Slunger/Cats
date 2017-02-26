@@ -1,7 +1,7 @@
-package com.cats.services;
+package com.cats.services.cat;
 
 import com.cats.model.Cat;
-import com.cats.services.cat.CatService;
+import com.cats.services.ServicesTestConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +28,23 @@ public class CatServiceTest {
     private static final String NAME = "name";
     private static final int AGE = 3;
     private static final int WEIGHT = 8;
+    private static final int USER_ID = 0;
 
     @Autowired
     private CatService catService;
 
     @Test
     public void testSaveCat() {
-        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
         catService.save(cat);
         assertNotNull(catService.get(cat.getId()));
     }
 
     @Test
     public void testSaveAllCats() {
-        final Cat cat1 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
-        final Cat cat2 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
-        final Cat cat3 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+        final Cat cat1 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
+        final Cat cat2 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
+        final Cat cat3 = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
         catService.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         Collection<Cat> catCollection = catService.saveAll(Arrays.asList(cat1, cat2, cat3));
@@ -56,7 +57,7 @@ public class CatServiceTest {
 
     @Test
     public void testUpdateCat() {
-        Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+        Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
         catService.save(cat);
         cat.setAge(cat.getAge() + 1);
 
@@ -65,15 +66,26 @@ public class CatServiceTest {
     }
 
     @Test
-    public void testDeleteCat(){
-        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, 0);
+    public void testDeleteCat() {
+        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
         catService.save(cat);
         catService.delete(cat.getId());
         assertNull(catService.get(cat.getId()));
     }
 
     @Test
-    public void testGetAll(){
-        assertTrue(catService.getAll().size() > 0);
+    public void testGetAll() {
+        assertTrue(catService.getAll().size() > USER_ID);
+    }
+
+    @Test
+    public void testLikeCat() {
+        final Cat cat = new Cat(AGE, COLOR, BREED, NAME, WEIGHT, USER_ID);
+        catService.save(cat);
+        catService.like(cat.getId());
+        assertEquals(1, catService.get(cat.getId()).getLikes());
+
+        catService.like(cat.getId());
+        assertEquals(2, catService.get(cat.getId()).getLikes());
     }
 }

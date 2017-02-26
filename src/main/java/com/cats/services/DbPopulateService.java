@@ -31,7 +31,7 @@ public class DbPopulateService {
     @PostConstruct
     private void populate() {
 
-        if (!userService.findAll().isEmpty()) {
+        if (!userService.getAll().isEmpty()) {
             return;
         }
 

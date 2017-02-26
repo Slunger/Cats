@@ -33,11 +33,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
-        final DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class)
-                .add(Property.forName("username").eq(s));
-
-        return dao.getBy(detachedCriteria);
+        return loadUser(s);
     }
 
     @Override
@@ -56,17 +52,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         return dao.all(User.class);
     }
 
     @Override
     public void updateTokenByUsername(String username, String token) {
-
-        final DetachedCriteria detachedCriteria = DetachedCriteria.forClass(User.class)
-                .add(Property.forName("username").eq(username));
-
-        User user = dao.getBy(detachedCriteria);
+        User user = loadUser(username);
         user.setToken(token);
         dao.update(user);
     }
