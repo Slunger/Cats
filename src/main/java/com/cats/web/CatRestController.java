@@ -1,8 +1,8 @@
 package com.cats.web;
 
 import com.cats.model.Cat;
-import com.cats.services.AndroidPushNotificationsService;
-import com.cats.services.MessageService;
+import com.cats.services.notification.AndroidPushNotificationsService;
+import com.cats.services.message.MessageService;
 import com.cats.services.cat.CatService;
 import com.cats.services.user.UserService;
 import org.slf4j.Logger;

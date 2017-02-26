@@ -1,4 +1,4 @@
-package com.cats.services;
+package com.cats.services.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class MessageService {
 
-    public static final String SUBSCRIPTION_URL = "/topic/message/";
+    private static final String SUBSCRIPTION_URL = "/topic/message/";
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;

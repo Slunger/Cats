@@ -1,4 +1,4 @@
-package com.cats.services;
+package com.cats.services.notification;
 
 import com.cats.model.FirebaseResponse;
 import com.cats.model.HeaderRequestInterceptor;
